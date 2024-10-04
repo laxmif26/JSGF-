@@ -1,0 +1,31 @@
+##First command to install
+pip install pyJSGF
+import jsgf
+
+# Load the JSGF grammar file
+grammar_file = 'naomi_grammar.jsgf'
+grammar = jsgf.JSGF().load(grammar_file)
+
+# Function to simulate speech recognition with the grammar
+def recognize_speech(input_text):
+    for rule in grammar.rules:
+        if rule.name == 'command':
+            for option in rule:
+                if option == input_text:
+                    print(f"Recognized intent: {option}")
+                    return option
+    print("No matching intent found.")
+    return None
+
+# Simulate input from speech recognition
+user_input = "hello"  # Example input
+recognized_intent = recognize_speech(user_input)
+
+# Additional functionality based on recognized intent
+if recognized_intent:
+    if recognized_intent in ["hello", "hi", "hey"]:
+        print("User greeted.")
+    elif recognized_intent == "what time is it":
+        print("Fetching the current time...")
+    elif recognized_intent == "what is the date":
+        print("Fetching the current date...")
